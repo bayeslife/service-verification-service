@@ -1,0 +1,27 @@
+{
+  "name": "ServicedVerificationService",
+  "version": "0.1.0",
+  "description": "A service verification service",
+  "main": "index.js",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "mocha": "^3.5.0"
+  },
+  "watch": {
+    "w": {
+      "patterns": [
+        "*.js",
+        "test"
+      ],
+      "extensions": "js,jsx,hbs,ts,json,css"
+    }
+  },
+  "scripts": {
+    "w": "mocha",
+    "test": "./node_modules/mocha/bin/mocha"
+  },
+  "author": "Phil Tomlinson",
+  "license": "ISC",
+  "homepage": "https://github.com/bayeslife/service-verification-service"
+}
