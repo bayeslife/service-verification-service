@@ -39,7 +39,10 @@ Service Registration: A service notifies of its existence.
 
 Service Registry: A component which knows of services and can be queried by clients to discover the services.
 
-Service Health Check: Lightwieight tests that a service discovery engine run to monitor the services.
+Service Health Check: Lightwieight tests that a service discovery engine run to monitor the services and choose to take the service offline if the appropriate response is not received.  This is typically implemented by the Service Disovery engine rather than the Service Verification engine.
+
+Service Verification Engine: A component used to verify the microservice is deployed as required and to provide visibility of the service existence.
+
 
 Service Metadata Query: A query that should return information about the microservice such that the appropriate Service Verification Tests can be identified.
 
@@ -49,10 +52,24 @@ Service Verification Test: A tests used to verify a service is as designed.  Thi
 ## Responsibilities
 
 ### Accept Verification Tests
-What storage to use?
+Problem: How to submit/change and remove verification tests.
 
-How to identify which tests will apply to which services.
--Through the use of tags
+The Service Verification component provides a REST API to register verification tests.
+
+
+### Persist Verification Tests
+Problem: How will verification tests be available across the cluster.
+
+The component relies upon the Service Discovery distributed KV storage as its persistent storage.  Tests are stored as values indexed by key.
+
+### Associate Verification Tests
+Problem: How to identify which tests will apply to which services.
+
+As services life cycle events occur the service end point is provided to the Service Verification component. It will then retrieve meta data about the service through a dedicated API.  The metadata query is then matched to tags associated with the verification tests.
+
+
+### Verification Test Container
+Problem: What environment is provided to verification tests
 
 What languages
 How to support any language.
