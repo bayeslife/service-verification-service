@@ -31,8 +31,8 @@ A proxy logs the REST API interaction between the Registrar and the Consul Serve
 
 With the Redis container running, a 'dig' lookup show the service port and the Consul Server UI shows the service status.
 
-![alt text][Demo]
-[Demo]: images/consul.gif "Overview"
+![alt text][logo]
+[logo]: images/consul.gif "Overview"
 
 
 ###  Integration Opportunity
