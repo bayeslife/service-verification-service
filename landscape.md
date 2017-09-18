@@ -36,6 +36,11 @@ With the Redis container running, a 'dig' lookup show the service port and the C
 
 [overview]: images/consul.gif "Overview"
 
+### Evidence
+
+Some evidence on the capability of consul was gathered to address a number of questions about this capability.
+[See this evidence](Evidence.md).
+
 
 ###  Integration Opportunity
 
