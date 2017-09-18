@@ -20,7 +20,8 @@ docker run -it --name=consul-server2 consul agent -dev -server -bind=172.17.0.3 
 
 Third server
 ```
-docker run -it --name=consul-server3 consul agent -dev -server -bind=172.17.0.4 -client=172.17.0.4  -join=172.17.0.2```
+docker run -it --name=consul-server3 consul agent -dev -server -bind=172.17.0.4 -client=172.17.0.4  -join=172.17.0.2
+```
 
 In the test case we write to one node and read from the other two.
 
@@ -34,7 +35,7 @@ var client = new Client();
 describe('Given a pair of joined consul servers', function() {
   this.timeout(10000);
   var value = "hello";
-  var key = "mykey2"
+  var key = Math.random().toString(36).substring(7);
   describe('When a kv pair is inserted to one server', function() {
     var clientStatus=false;
     before(function(done){
@@ -68,13 +69,39 @@ describe('Given a pair of joined consul servers', function() {
             done();
           })
       })
-      it('Then we should read the value from the second server', function() {
+      it('And verify the value retrieved', function() {
+        assert.ok(clientStatus,"The put request failed");
+        assert.equal(value,readValue);
+      });
+    });
+    describe('Then we should read the value from the third server', function() {
+      var readValue =null;
+      before(function(done){
+        client.getPromise("http://172.17.0.4:8500/v1/kv/"+key)
+          .then(function({response,data}){
+            if(response.statusCode==200){
+              clientStatus=true;
+              var buf = Buffer.from(data[0].Value, 'base64')
+              readValue = buf.toString("ascii");
+
+            }else {
+              console.log("Response Status:"+response.statusCode)
+            }
+            done();
+          })
+          .catch(function(error){
+            console.log(error.code);
+            done();
+          })
+      })
+      it('And verify the value retrieved', function() {
         assert.ok(clientStatus,"The put request failed");
         assert.equal(value,readValue);
       });
     });
   })
 });
+
 
 ```
 

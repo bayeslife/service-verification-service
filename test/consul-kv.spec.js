@@ -54,7 +54,7 @@ describe('Given a pair of joined consul servers', function() {
             if(response.statusCode==200){
               clientStatus=true;
               var buf = Buffer.from(data[0].Value, 'base64')
-              readValue = buf.toString('ascii');
+              readValue = buf.toString("ascii");
 
             }else {
               console.log("Response Status:"+response.statusCode)
