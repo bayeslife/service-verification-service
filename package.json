@@ -17,7 +17,7 @@
         "*.js",
         "test"
       ],
-    "extensions": "js,jsx,hbs,ts,json,css"
+      "extensions": "js,jsx,hbs,ts,json,css"
     }
   },
   "scripts": {
