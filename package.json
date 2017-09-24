@@ -4,14 +4,26 @@
   "description": "A service verification service",
   "main": "index.js",
   "dependencies": {
-    "express": "^4.15.4"
+    "body-parser": "^1.18.2",
+    "content-type": "^1.0.4",
+    "debug": "^3.0.1",
+    "express": "^4.15.4",
+    "http-proxy": "^1.16.2",
+    "raw-body": "^2.3.2"
   },
   "devDependencies": {
+    "cross-env": "^5.0.5",
     "mocha": "^3.5.3",
     "node-rest-client": "^3.1.0",
     "node-rest-client-promise": "^3.0.0"
   },
   "watch": {
+    "start": {
+      "patterns": [
+        "*.js"
+      ],
+      "extensions": "js"
+    },
     "test": {
       "patterns": [
         "*.js",
@@ -21,8 +33,9 @@
     }
   },
   "scripts": {
-    "start": "node server.js",
+    "start": "cross-env DEBUG=service-verifier-server node src/server/server.js",
     "test": "./node_modules/mocha/bin/mocha",
+    "evidence": "./node_modules/mocha/bin/mocha evidence-test",
     "watch": "test"
   },
   "author": "Phil Tomlinson",

@@ -1,0 +1,29 @@
+version: '2'
+services:
+  consul:
+    image: gliderlabs/consul-server
+    ports:
+      - "8501:8500"
+      - "8301:8300"
+    command: [ "-node", "consulnode","-bootstrap"]
+
+  svsserver:
+    build: .
+    ports:
+      - "8500:8500"
+
+  # registrator:
+  #   image: gliderlabs/registrator
+  #   volumes:
+  #     - /var/run/docker.sock:/tmp/docker.sock
+  #   command: [ "-ip","192.168.1.108", "consul://192.168.1.108:8500" ]
+  #   depends_on:
+  #     - consul
+  #     - svsserver
+
+  # svs-microservice:
+  #  build: ../service-verification-microservice
+  #  ports:
+  #    - "8700:8700"
+  #  depends_on:
+  #    - registrator
