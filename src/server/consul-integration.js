@@ -5,29 +5,29 @@ var httpProxy = require('http-proxy');
 var apiProxy = httpProxy.createProxyServer();
 
 
-function setup(app,serviceprocessor,options){
+function setup(app,serviceregistrator,options){
     app.use ("/v1/*",function(req, res, next) {
         var data='';
         req.setEncoding('utf8');
-        req.on('data', function(chunk) { 
+        req.on('data', function(chunk) {
            data += chunk;
         });
-        req.on('end', function() {                  
-            serviceprocessor.process(req,data);      
+        req.on('end', function() {
+            serviceregistrator.process(req,data);      
         });
         next();
       });
-      
+
       app.all("/v1/*", function(req, res) {
         debug(req.url);
         debug(req.method)
         apiProxy.web(req, res, {target: options.backend});
-        debug("Proxied");  
-      });    
+        debug("Proxied");
+      });
 }
 
 
 
   module.exports = {
-      setup: setup 
+      setup: setup
   }

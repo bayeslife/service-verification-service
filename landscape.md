@@ -12,8 +12,16 @@ The Consul Server provides
  - a DNS capability allow lookup of SRV lookups for service ports
  - a clustering capability
  - a UI for browsing the services, key value pairs, clustered nodes and data centers
- - a REST API to register/de-register services,nodes and data centers.
+ - a REST API to register/de-register services, nodes and data centers.
 
+
+### Shortcomings
+
+Consul doesnt support a 2 phase service activation.  Once a REST call is made to register the service it is active.
+Ideally there should be a separate activation request in addition to a registration request.
+
+
+###
 Gliderlabs has built a service registrar docker image integrated to Consul.
 As docker images are started on the same node as the service registrar, the registrar will register them into Consul using the Consult REST API interface.
 
